@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<sistemas>
+		<sistema nome="IBKAPI">
+				<sigla>nomesiglaaplicação</sigla>
+                <aplicacao>nomeresumidoaplicação</aplicacao>
+                <reposgit>Link do repositório no stash para realizar o clone exe: ssh://git@stash.xxxx.com:7999/app/app-dev.git</reposgit>
+                <versaomaven>app-dev</versaomaven>
+                <dirgit>app-dev</dirgit>
+        </sistema>
+        <configuracoes>
+            <temp_dir>c:\temp</temp_dir>
+        </configuracoes>
+</sistemas>
+
