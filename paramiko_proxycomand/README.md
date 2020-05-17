@@ -13,7 +13,7 @@ Host bastionserver
     Hostname x.x.xx.xx
     User bastion
     IdentityFile /home/andrej/bastion.pem
-    Port 22    
+    Port 22
 
 Host Brinks-devm
     HostName x.x.xx.xx
@@ -31,11 +31,11 @@ python paramiko_ssh.py
 Dentro da classe, tem o parametro do ambiente a ser acessado e executado alguns comandos, exemplo: 
 
 ``` python
-client1 = cessClientProxy("herabank-hml_gateway")
+client1 = AcessClientProxy("herabank-hml_gateway")
 ```
 
-# Problemas
+# Referências
 
-O script só vai até o caminho: MAQUINALOCAL ----------->    BASTIONSERVER   ------------> GATEWAY.
+* https://www.cyberciti.biz/faq/linux-unix-ssh-proxycommand-passing-through-one-host-gateway-server/
 
-Se for adicionado mais um nível de dependência, vai dar erro.
+* https://github.com/paramiko/paramiko 

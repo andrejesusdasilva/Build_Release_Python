@@ -61,5 +61,4 @@ if __name__ == '__main__':
 
     #tem que passar o mesmo nome da chave do arquivo ./.ssh/config
     client1 = AcessClientProxy("herabank-hml_gateway")
-    #client1.exec_comando(list)
-    #client1.client.close()
+    client1.exec_comando(list)
