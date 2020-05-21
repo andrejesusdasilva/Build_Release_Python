@@ -41,7 +41,7 @@ Dentro da classe, tem o parametro do ambiente a ser acessado e executado alguns 
 listComandosSOOracle = []
 listComandosSOOracle.append("echo \"Total de memória: \" && free -h")
 
-client1 = AcessClientProxy("ambiente-andrej_gateway")
+client1 = AcessClientProxy("ambiente-andrej_oracle")
 client1.exec_list_commands(listComandosSOTomcat)
 ```
 
