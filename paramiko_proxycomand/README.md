@@ -15,27 +15,37 @@ Host bastionserver
     IdentityFile /home/andrej/bastion.pem
     Port 22
 
-Host Brinks-devm
+Host ambiente-andrej_gateway
     HostName x.x.xx.xx
     User andre.jesus
     IdentityFile /home/andrej/.ssh/id_rsa
     ProxyCommand ssh -q -W %h:%p bastionserver
+
+Host ambiente-andrej_oracle
+    HostName x.x.xx.xx
+    User andre.jesus
+    IdentityFile /home/andrej/.ssh/id_rsa
+    ProxyCommand ssh -q -W %h:%p ambiente-andrej_gateway
 ```
 
 # Executando o script
 
 ``` python
-python paramiko_ssh.py
+python main.py
 ```
 
 Dentro da classe, tem o parametro do ambiente a ser acessado e executado alguns comandos, exemplo: 
 
 ``` python
-client1 = AcessClientProxy("herabank-hml_gateway")
+#comandos que serão executados nos ambientes e ser direcionados nos arquivos de logs
+listComandosSOOracle = []
+listComandosSOOracle.append("echo \"Total de memória: \" && free -h")
+
+client1 = AcessClientProxy("ambiente-andrej_gateway")
+client1.exec_list_commands(listComandosSOTomcat)
 ```
 
 # Referências
 
 * https://www.cyberciti.biz/faq/linux-unix-ssh-proxycommand-passing-through-one-host-gateway-server/
-
-* https://github.com/paramiko/paramiko 
+* https://github.com/paramiko/paramiko

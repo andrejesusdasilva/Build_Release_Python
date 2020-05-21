@@ -2,24 +2,6 @@ import os
 import sys
 import paramiko
 
-"""
-baseado no arquivo de configuração utilizado para fazer a conexão usando o vscode
-
-Exemplo do arquivo ~/.ssh/config:
-
-Host bastionserver
-    Hostname x.x.xx.xx
-    User bastion
-    IdentityFile /home/andrej/bastion.pem
-    Port 22    
-
-Host Brinks-devm
-    HostName x.x.xx.xx
-    User andre.jesus
-    IdentityFile /home/andrej/.ssh/id_rsa
-    ProxyCommand ssh -q -W %h:%p bastionserver
-"""
-
 # TODO adicionar validação do arquivo config
 # TODO por algum motivo precisa mapear a porta 22 (precisa testar)
 
@@ -37,28 +19,26 @@ class AcessClientProxy:
             host['hostname'],
             username=host['user'],
             key_filename=host['identityfile'],
-            banner_timeout=200,
-            sock=paramiko.ProxyCommand(host.get('proxycommand'))
-        )
+            timeout=20,
+            banner_timeout=100,
+            sock=paramiko.ProxyCommand(host.get('proxycommand')))
 
-    def exec_comando(self,command):
+    def exec_list_commands(self,command):
         #percorre a lista de comandos
         for comands in command:
-            (stdin, stdout, stderr) = self.client.exec_command(comands)
+            #get_pty=True padrao é false. Sem essa opção não era possivel trocar para o user oracle
+            (stdin, stdout, stderr) = self.client.exec_command(comands,get_pty=True)
+            print("Resultado comando: %s" % comands)
             #não sei por que não printa a saida direto então precisa verificar as saidas
             if stderr.channel.recv_exit_status() != 0:
+                print("Erro ao executar os comandos no ambiente:  %s" % self.hostname)
                 print(stderr.read())
             else:
                 for filelist in stdout.readlines():
                     print(filelist.strip('\n'))
+                    self.create_logfile(self.hostname + ".txt",filelist.strip('\n'))
+            print('\n')
 
-if __name__ == '__main__':
-
-    list = []
-    list.append("pwd")
-    list.append("free -h")
-    list.append("df -h")
-
-    #tem que passar o mesmo nome da chave do arquivo ./.ssh/config
-    client1 = AcessClientProxy("herabank-hml_gateway")
-    client1.exec_comando(list)
+    def create_logfile(self,log,msg):
+        with open(log, mode='a') as logfile:
+            logfile.write(msg.strip('\n'))
