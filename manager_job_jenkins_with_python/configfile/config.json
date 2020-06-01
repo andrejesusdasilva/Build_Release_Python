@@ -1,0 +1,15 @@
+{
+    "jenkinsserver": "http://jenkins.local.com",
+    "userinfo": {
+      "token": "abcdef",
+      "email": "andre.jesus.silva1@gmail.com"
+    },
+    "jobsurl": {
+        "provliga": {
+            "urlprovamb-liga": "ambientes/provisionamento 2.0/ferramentas/ligar-instancia"
+        },
+        "provdes": {
+            "urlprovamb-desliga": "ambientes/provisionamento 2.0/ferramentas/parar-instancia"
+        }
+    }
+}
